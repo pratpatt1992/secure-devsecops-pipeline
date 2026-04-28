@@ -10,6 +10,8 @@ app.config["SECRET_KEY"] = "super-secret-key-12345"
 API_KEY = "sk_live_1234567890abcdef"
 AWS_ACCESS_KEY_ID = "AKIAIOSFODNN7EXAMPLE"
 AWS_SECRET_ACCESS_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+
 
 def get_db():
     return sqlite3.connect("database.db")
