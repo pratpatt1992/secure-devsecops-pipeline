@@ -8,7 +8,8 @@ app = Flask(__name__)
 # Vulnerability 1: Hardcoded secret
 app.config["SECRET_KEY"] = "super-secret-key-12345"
 API_KEY = "sk_live_1234567890abcdef"
-
+AWS_ACCESS_KEY_ID = "AKIAIOSFODNN7EXAMPLE"
+AWS_SECRET_ACCESS_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
 
 def get_db():
     return sqlite3.connect("database.db")
