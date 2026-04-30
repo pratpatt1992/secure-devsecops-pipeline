@@ -1,0 +1,52 @@
+name: DevSecOps Pipeline
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Build Docker image
+      - name: Build Docker Image
+        run: docker build -t myapp .
+
+      # Trivy Image Scan
+      - name: Trivy Image Scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: 'myapp'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '0'   # Change to '1' later for gating
+
+      # Trivy Dockerfile Scan
+      - name: Trivy Dockerfile Scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: 'config'
+          scan-ref: 'Dockerfile'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '0'
+
+      # Trivy Terraform Scan
+      - name: Trivy Terraform Scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: 'config'
+          scan-ref: 'terraform/'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '0'
+
+      # Checkov IaC Scan
+      - name: Checkov Terraform Scan
+        uses: bridgecrewio/checkov-action@v12
+        with:
+            directory: terraform/
+            framework: terraform
+            soft_fail: true  
