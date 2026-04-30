@@ -135,6 +135,10 @@ def download_file():
 
     return send_file(file_path)
 
+@app.route("/test-cmd")
+def test_cmd():
+    user_input = request.args.get("input")
+    return os.popen("echo " + user_input).read()
 
 if __name__ == "__main__":
     app.run(debug=True)
